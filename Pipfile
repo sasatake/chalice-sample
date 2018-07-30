@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 chalice = "*"
+python-json-logger = "*"
+cerberus = "*"
 
 [dev-packages]
 yapf = "*"
