@@ -1,13 +1,15 @@
 from chalice import Chalice, Response
 from chalicelib.util.logger import getLogger
+from chalicelib.util.util import safe_bool
+import os
 
-app = Chalice(app_name="chalice-sample")
-app.debug = True
+app = Chalice(app_name=os.getenv("APP_NAME", "chalice-test"))
+app.debug = safe_bool(os.getenv("DEBUG", "0"))
+logger = getLogger(app.app_name)
 
 
-@app.route("/check", methods=["GET"], api_key_required=True, name='MyFunction')
+@app.route("/check", methods=["GET"], api_key_required=True)
 def check():
-    logger = getLogger("/check")
     result = {
         "response_code": 200,
         "input": {
