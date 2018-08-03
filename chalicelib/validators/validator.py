@@ -1,11 +1,10 @@
-from cerberus import schema_registry, Validator
+from cerberus import schema_registry, Validator as validator
 
 
-class ProductValidator:
+class Validator:
     def __init__(self):
-        print('validator init')
         schema_registry.add(
-            'getProduct',
+            'get_product',
             {'id': {
                 'type': 'integer',
                 'min': 10,
@@ -16,10 +15,10 @@ class ProductValidator:
 
     def validate(self, name, params):
         result = {}
-        v = Validator(self.registry.get(name), allow_unknown=True)
+        v = validator(self.registry.get(name), allow_unknown=True)
         result['result'] = v.validate(params if params else {})
         result['errors'] = v.errors
         return result
 
 
-VALIDATOR = ProductValidator()
+VALIDATOR = Validator()
